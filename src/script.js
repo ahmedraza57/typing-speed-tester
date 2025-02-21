@@ -1,15 +1,17 @@
 import {phrases} from './data/data.js'
 
+const time = document.getElementById('Time');
 const displayText = document.getElementById('display-text');
 const textarea = document.getElementById('textarea');
-const time = document.getElementById('Time');
-const testingButton = document.getElementById('testing');
+const wpm = document.getElementById('wpm');
+const accuracy = document.getElementById('accuracy')
+// const testingButton = document.getElementById('testing');
 const resetButton = document.getElementById('reset-button');
 
 displayText.textContent = phrases[0];
 
 // work with timing only.
-let count = 60;
+let count = 59;
 let Id;
 function starttTiming(){
     Id = setInterval(() => {
@@ -19,12 +21,14 @@ function starttTiming(){
 }
 function clearTiming(){
     clearInterval(Id);
-    count = 60;
+    count = 59;
     time.textContent = count;
 }
 
 // here we can start working on the keydown event
 let userText = [];
+let ConvertUT = [];
+let ConvertDT = [];
 function userInputText(val){
     if(val.key == "Backspace"){
         userText.pop(-1);
@@ -35,26 +39,45 @@ function userInputText(val){
     }
 }
 
-// settinf timing
-function setting() {
+// setting timing
+function setTimer() {
     starttTiming();
     setTimeout(() => {
-        clearTiming()
+        stop();
     }, 60 * 1000)
-    textarea.removeEventListener('keydown', setting)
+    textarea.removeEventListener('keydown', setTimer)
 }
 
-// here event listeners starts
-textarea.addEventListener('keydown', setting)
-textarea.addEventListener('keydown', () => {
-    console.log("this is the second event which is fire");
-    
-})
-resetButton.addEventListener('click', () => {
+function stop() {
     clearTiming();
-    textarea.textContent = "";
-    count = 0;
-    userText = [];
-    console.log("reset Button is fired", count, userText);
-    
+    userText = []
+    count = 59;
+    textarea.value = "";
+}
+
+function checkingLetters(arr){
+    return arr.join('').split('');
+}
+
+let i = 0;
+// here event listeners starts
+textarea.addEventListener('keydown', setTimer)
+textarea.addEventListener('keydown', (event) => {
+    userInputText(event);
+    ConvertUT = checkingLetters(userText);
+    ConvertDT = checkingLetters(phrases[0]);
+        if(ConvertUT[i] == ConvertDT[i]){
+            console.log("YEs");
+            console.log(ConvertUT[i], ConvertDT[i])
+            textarea.style.color = 'white';
+            i++;
+        } else{
+            textarea.style.color = 'red';
+            console.log("no");
+            console.log(ConvertUT[i], ConvertDT[i]);    
+        } 
+
 })
+
+
+resetButton.addEventListener('click', stop)

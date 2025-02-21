@@ -8,7 +8,7 @@
 
 :root{
     --bg-color:black;
-    --color:white;
+    --text-color:white;
     --primary-color:rgb(37, 32, 32);
     --secondary-color:red;
 }
@@ -18,43 +18,36 @@ body{
     height: 100%;
     width: 100%;
     background-color: var(--bg-color);
-    color: var(--color);
+    color: var(--text-color);
     font-size: 1.2rem;
 }
 
-header section {
-    height: 7vh;
-    width: 20vw;
-    background-color:var(--secondary-color);
-    border-radius: 20px;
-    text-align: center;
+main #text-section{
+    height: 80vh;
+    width: 80vw;
 }
 
-main{
-    height:80vh;
-    width: 90vw;
-    background-color: var(--primary-color);
-    padding: 2.5rem; 
+main #display-text,
+main #textarea{
+    height: 60vh;
+    width: 80vw;
 }
 
-p{
-    background-color: var(--primary-color);
-    text-align: center;
-
+main #display-text{
+    position: absolute;
+    z-index: 1;
+    color: rgb(78, 70, 70);
+    overflow-x: hidden;
 }
 
-textarea{
+main #textarea{
     background-color: transparent;
-    color: var(--color);
-    text-align: center;
+    color: var(--text-color);
+    position: absolute;
+    z-index: 2;
+    border: none;
 }
 
-button{
-    height: 7vh;
-    width: 20vw;
-    background-color:var(--secondary-color);
-    color: var(--color);
-    border: none;
-    border-radius: 20px;
-    text-align: center;
+reset-button{
+    top: 50vh;
 }
