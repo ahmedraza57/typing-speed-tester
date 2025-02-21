@@ -3,12 +3,14 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.2rem;
 }
 
 :root{
     --bg-color:black;
     --color:white;
     --primary-color:rgb(37, 32, 32);
+    --secondary-color:red;
 }
 
 html,
@@ -17,21 +19,42 @@ body{
     width: 100%;
     background-color: var(--bg-color);
     color: var(--color);
-    display: flex;
-    justify-content: center;
-    /* align-items: center; */
-    flex-direction: column;
     font-size: 1.2rem;
+}
+
+header section {
+    height: 7vh;
+    width: 20vw;
+    background-color:var(--secondary-color);
+    border-radius: 20px;
+    text-align: center;
+}
+
+main{
+    height:80vh;
+    width: 90vw;
+    background-color: var(--primary-color);
+    padding: 2.5rem; 
 }
 
 p{
     background-color: var(--primary-color);
     text-align: center;
+
 }
 
 textarea{
-    background-color: var(--bg-color);
+    background-color: transparent;
     color: var(--color);
-    font-size: 1.2rem;
+    text-align: center;
+}
 
+button{
+    height: 7vh;
+    width: 20vw;
+    background-color:var(--secondary-color);
+    color: var(--color);
+    border: none;
+    border-radius: 20px;
+    text-align: center;
 }

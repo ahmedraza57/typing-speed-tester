@@ -7,9 +7,19 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 <body>
-    <h1>Typing Speed Tester</h1>
-    <p id="phrase"></p>
-    <textarea name="user-type" id="user-type" rows="10" cols="100"></textarea>
+    <header>
+        <h1>Type Master</h1>
+        <section>
+            <span>Timer :</span>
+            <span id="Time">60</span>
+        </section>
+    </header>
+    <main>
+        <p id="display-text"></p>
+        <textarea name="type" id="textarea" rows="10" cols="54"></textarea>
+    </main>
+    <button id="testing">start</button>
+    <button id="reset-button">reset</button>
 </body>
 <script type="module" src="src/script.js"></script>
 </html>
