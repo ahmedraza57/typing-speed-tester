@@ -119,7 +119,10 @@ const phrases = [
       [
         "Print design focuses on creating materials like posters, brochures, magazines, and packaging. Unlike digital design, print requires careful attention to CMYK color profiles, resolution, and bleed margins. Graphic designers use InDesign and Illustrator to ensure high-quality print production."
       ]
-  ];
-  
-  export {phrases};
-  
+];
+
+const custom = [
+  "The quick brown fox jumps over the lazy dog"
+]
+
+export {phrases, custom};

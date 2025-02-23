@@ -1,83 +1,70 @@
-import {phrases} from './data/data.js'
+import {custom, phrases} from './data/data.js';
+import { userTextArr, accuracyCharArr, userInputText, userAccuracy, wpmCalaulation, accuracyCalculation } from './module/module.js';
 
-const time = document.getElementById('Time');
+const timer = document.getElementById('timer');
 const displayText = document.getElementById('display-text');
 const textarea = document.getElementById('textarea');
 const wpm = document.getElementById('wpm');
-const accuracy = document.getElementById('accuracy')
-// const testingButton = document.getElementById('testing');
+const acuracy = document.getElementById('acuracy')
+const timeTaken = document.getElementById('total-time-taken');
 const resetButton = document.getElementById('reset-button');
 
-displayText.textContent = phrases[0];
 
-// work with timing only.
-let count = 59;
-let Id;
-function starttTiming(){
-    Id = setInterval(() => {
-    count -= 1;
-    time.textContent = count;
+let interval;
+let countTime = 0;
+
+const displayTextWords = custom.join('').split(' ');
+const displayTextLetters = custom.join('').split('');
+
+displayText.textContent = `${custom}.`;
+textarea.setAttribute('maxlength', displayTextLetters.length)
+
+
+// here we talk about the time
+function StartTime () {
+    interval = setInterval(() => {
+        countTime += 1;
     }, 1000)
 }
-function clearTiming(){
-    clearInterval(Id);
-    count = 59;
-    time.textContent = count;
+function stopTime() {
+    clearInterval(interval)
+    console.log(countTime);
+    countTime = 0;
 }
 
-// here we can start working on the keydown event
-let userText = [];
-let ConvertUT = [];
-let ConvertDT = [];
-function userInputText(val){
-    if(val.key == "Backspace"){
-        userText.pop(-1);
-    } else if (val.key == "Shift" || val.key == "Control" || val.key == "Alt" || val.key == "Tab" || val.key == "Capslock" || val.key == "Enter"){
-        userText.push('');
-    } else{
-        userText.push(val.key)
-    }
+function conditionalTime () {
+    StartTime();
+    textarea.removeEventListener('keydown', conditionalTime);
 }
 
-// setting timing
-function setTimer() {
-    starttTiming();
-    setTimeout(() => {
-        stop();
-    }, 60 * 1000)
-    textarea.removeEventListener('keydown', setTimer)
+function reset() {
+    stopTime();
+    countTime = 0;
+    // userTextArr = [];
+    accuracyCharArr = [];
+    textarea.value = '';
+    wpm.textContent = '';
+    acuracy.textContent = '';
+    timeTaken.textContent = ''
 }
-
-function stop() {
-    clearTiming();
-    userText = []
-    count = 59;
-    textarea.value = "";
-}
-
-function checkingLetters(arr){
-    return arr.join('').split('');
-}
-
-let i = 0;
-// here event listeners starts
-textarea.addEventListener('keydown', setTimer)
+    
+// event listeners
+textarea.addEventListener('keydown', conditionalTime)
 textarea.addEventListener('keydown', (event) => {
     userInputText(event);
-    ConvertUT = checkingLetters(userText);
-    ConvertDT = checkingLetters(phrases[0]);
-        if(ConvertUT[i] == ConvertDT[i]){
-            console.log("YEs");
-            console.log(ConvertUT[i], ConvertDT[i])
-            textarea.style.color = 'white';
-            i++;
-        } else{
-            textarea.style.color = 'red';
-            console.log("no");
-            console.log(ConvertUT[i], ConvertDT[i]);    
-        } 
-
+    userAccuracy(event)
+    // console.log(userText);
+    if(textarea.value.length == displayTextLetters.length){
+        wpm.textContent = wpmCalaulation(displayTextWords.length, countTime)
+        acuracy.textContent = accuracyCalculation(displayTextLetters.length, accuracyCharArr.length)
+        timeTaken.textContent = countTime;
+        textarea.value = '';
+        stopTime();
+    }
 })
-
-
-resetButton.addEventListener('click', stop)
+resetButton.addEventListener('click', reset)
+document.addEventListener('keydown', (e) => {
+    if(e.key == "Control" && e.key == "r"){
+        reset()
+    }
+})

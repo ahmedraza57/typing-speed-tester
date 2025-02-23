@@ -2,14 +2,15 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.2rem;
+    font-family: "Atkinson Hyperlegible Next", serif;
+    font-stretch: extra-expanded;
 }
 
 :root{
-    --bg-color:black;
+    --bg-primary-color:rgb(24, 21, 21);
+    --bg-secondary-color:black;
     --text-color:white;
-    --primary-color:rgb(37, 32, 32);
+    /* --primary-color:rgb(37, 32, 32); */
     --secondary-color:red;
 }
 
@@ -17,20 +18,49 @@ html,
 body{
     height: 100%;
     width: 100%;
-    background-color: var(--bg-color);
+    background-color: var(--bg-secondary-color);
     color: var(--text-color);
     font-size: 1.2rem;
 }
 
+header nav ul{
+    width: 50vw;
+    display: flex;
+    float: left;
+    justify-content: space-around;
+    background-color: var(--bg-primary-color);
+    border-radius: 10px;
+}
+
+header nav ul li{
+    list-style: none;
+    color: var(--text-color);
+}
+
+header nav ul li a{
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+
+/* text show to user */
 main #text-section{
-    height: 80vh;
+    height: 60vh;
     width: 80vw;
+    background-color: var(--bg-primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
 }
 
 main #display-text,
 main #textarea{
-    height: 60vh;
-    width: 80vw;
+    height: min(45vh);
+    width: 75vw;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+
 }
 
 main #display-text{
@@ -46,8 +76,10 @@ main #textarea{
     position: absolute;
     z-index: 2;
     border: none;
+    resize: none;
+    caret-color: rgb(255, 255, 255);
 }
 
-reset-button{
-    top: 50vh;
+p{
+    display: inline;
 }
